@@ -1,5 +1,7 @@
 package br.com.qualiti.stockcontrol.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import br.com.qualiti.stockcontrol.model.Gondola;
@@ -16,6 +18,10 @@ public class GondolaService {
 	
 	public Gondola create(Gondola gondola) {
 		return gondolaRepository.save(gondola);
+	}
+	
+	public List<Gondola> getAll() {
+		return gondolaRepository.findAll();
 	}
 	
 }
