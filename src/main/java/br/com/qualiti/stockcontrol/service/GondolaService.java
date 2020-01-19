@@ -1,6 +1,7 @@
 package br.com.qualiti.stockcontrol.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,10 @@ public class GondolaService {
 	
 	public List<Gondola> getAll() {
 		return gondolaRepository.findAll();
+	}
+
+	public Optional<Gondola> getById(Long id) {
+		return gondolaRepository.findById(id);
 	}
 	
 }
