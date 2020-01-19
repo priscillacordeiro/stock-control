@@ -1,15 +1,13 @@
 package br.com.qualiti.stockcontrol.model;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Product {
@@ -21,17 +19,18 @@ public class Product {
 	@Column(length = 30, nullable = false, unique = false)
 	private String name;
 	
-	@Column(length = 10, nullable = false, unique = true)
-	private String code;
+	@Column(nullable = false, unique = true)
+	private Long code;
 	
 	@Column(nullable = true)
 	private Long quantity;
 	
 	@Column
-	private Double unitPrice;
+	private Double price;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "product")
-	private List<Gondola> gondolas;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_gondola", nullable = false)
+	private Gondola gondola;
 
 	public Long getId() {
 		return id;
@@ -49,11 +48,11 @@ public class Product {
 		this.name = name;
 	}
 
-	public String getCode() {
+	public Long getCode() {
 		return code;
 	}
 
-	public void setCode(String code) {
+	public void setCode(Long code) {
 		this.code = code;
 	}
 
@@ -65,20 +64,20 @@ public class Product {
 		this.quantity = quantity;
 	}
 
-	public Double getUnitPrice() {
-		return unitPrice;
+	public Double getPrice() {
+		return price;
 	}
 
-	public void setUnitPrice(Double unitPrice) {
-		this.unitPrice = unitPrice;
+	public void setPrice(Double price) {
+		this.price = price;
 	}
 
-	public List<Gondola> getGondolas() {
-		return gondolas;
+	public Gondola getGondola() {
+		return gondola;
 	}
 
-	public void setGondolas(List<Gondola> gondolas) {
-		this.gondolas = gondolas;
+	public void setGondola(Gondola gondola) {
+		this.gondola = gondola;
 	}
 	
 }
