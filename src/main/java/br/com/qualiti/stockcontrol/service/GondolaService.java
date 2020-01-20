@@ -47,4 +47,13 @@ public class GondolaService {
 		}
 	}
 	
+	public void delete(Long id) {
+		Optional<Gondola> gondola = gondolaRepository.findById(id);
+		if(gondola.isPresent()) {
+			gondolaRepository.deleteById(id);
+		} else {
+			throw new ResourceNotFoundException("Gondola", "Gondola", "Gondola with id: " + id + " not found");
+		}
+	}
+	
 }
