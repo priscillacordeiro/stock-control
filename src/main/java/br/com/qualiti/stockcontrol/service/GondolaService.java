@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import br.com.qualiti.stockcontrol.exception.ResourceNotFoundException;
 import br.com.qualiti.stockcontrol.model.Gondola;
 import br.com.qualiti.stockcontrol.repository.GondolaRepository;
 
@@ -25,8 +26,25 @@ public class GondolaService {
 		return gondolaRepository.findAll();
 	}
 
-	public Optional<Gondola> getById(Long id) {
-		return gondolaRepository.findById(id);
+	public Gondola getById(Long id) {
+		Optional<Gondola> gondola = gondolaRepository.findById(id);
+		if(gondola.isPresent()) {
+			return gondola.get();
+		} else {
+			throw new ResourceNotFoundException("Gondola", "Gondola", "Gondola with id: " + id + " not found");
+		}
+	}
+	
+	public Gondola update(Long id, Gondola gondola) {
+		Optional<Gondola> currentGondola = gondolaRepository.findById(id);
+		if(currentGondola.isPresent()) {
+			currentGondola.get().setStreet(gondola.getStreet());
+			currentGondola.get().setSection(gondola.getSection());
+			currentGondola.get().setShelf(gondola.getShelf());
+			return gondolaRepository.save(currentGondola.get());
+		} else {
+			throw new ResourceNotFoundException("Gondola", "Gondola", "Gondola with id: " + id + " not found");
+		}
 	}
 	
 }

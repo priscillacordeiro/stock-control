@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,13 +36,13 @@ public class GondolaController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity getById(@PathVariable Long id) {
-		Optional<Gondola> gondola = gondolaService.getById(id);
-		if(gondola.isPresent()) {
-			return ResponseEntity.ok(gondola);
-		} else {
-			return ResponseEntity.notFound().build();
-		}
+	public Gondola getById(@PathVariable Long id) {
+		return gondolaService.getById(id);
+	}
+	
+	@PutMapping("/{id}")
+	public Gondola update(@PathVariable Long id, @RequestBody Gondola gondola) {
+		return gondolaService.update(id, gondola);
 	}
 
 }
