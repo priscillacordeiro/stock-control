@@ -19,7 +19,12 @@ public class GondolaService {
 	}
 	
 	public Gondola create(Gondola gondola) {
-		return gondolaRepository.save(gondola);
+		Gondola currentGondola = gondolaRepository.findByStreetAndSectionAndShelf(gondola.getStreet(), gondola.getSection(), gondola.getShelf());
+		if(currentGondola == null) {
+			return gondolaRepository.save(gondola);
+		} else {
+			throw new ResourceNotFoundException("Gondola", "Gondola", "Gondola already exists");
+		}
 	}
 	
 	public List<Gondola> getAll() {

@@ -7,4 +7,7 @@ import br.com.qualiti.stockcontrol.model.Gondola;
 
 @Repository
 public interface GondolaRepository extends JpaRepository<Gondola, Long> {
+	
+	  Gondola findByStreetAndSectionAndShelf(Long street, Long section, Long shelf);
+
 }
