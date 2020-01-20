@@ -1,15 +1,15 @@
 package br.com.qualiti.stockcontrol.model;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Product {
@@ -27,11 +27,13 @@ public class Product {
 	@Column(nullable = true)
 	private Long quantity;
 	
-	@Column
+	@Column(nullable = false)
 	private Double unitPrice;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "product")
-	private List<Gondola> gondolas;
+	@JsonBackReference
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "gondola_id", nullable = false)
+	private Gondola gondola;
 
 	public Long getId() {
 		return id;
@@ -73,12 +75,12 @@ public class Product {
 		this.unitPrice = unitPrice;
 	}
 
-	public List<Gondola> getGondolas() {
-		return gondolas;
+	public Gondola getGondola() {
+		return gondola;
 	}
 
-	public void setGondolas(List<Gondola> gondolas) {
-		this.gondolas = gondolas;
+	public void setGondola(Gondola gondola) {
+		this.gondola = gondola;
 	}
-	
+
 }
