@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import br.com.qualiti.stockcontrol.exceptions.ResourceNotFoundException;
+import br.com.qualiti.stockcontrol.exception.ResourceNotFoundException;
 import br.com.qualiti.stockcontrol.model.Product;
 import br.com.qualiti.stockcontrol.repository.ProductRepository;
 
