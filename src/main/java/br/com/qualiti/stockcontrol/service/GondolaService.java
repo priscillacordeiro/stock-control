@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import br.com.qualiti.stockcontrol.exception.ResourceAlreadyExistsException;
 import br.com.qualiti.stockcontrol.exception.ResourceNotFoundException;
 import br.com.qualiti.stockcontrol.model.Gondola;
 import br.com.qualiti.stockcontrol.repository.GondolaRepository;
@@ -23,7 +24,7 @@ public class GondolaService {
 		if(currentGondola == null) {
 			return gondolaRepository.save(gondola);
 		} else {
-			throw new ResourceNotFoundException("Gondola", "Gondola", "Gondola already exists");
+			throw new ResourceAlreadyExistsException("Gondola");
 		}
 	}
 	
