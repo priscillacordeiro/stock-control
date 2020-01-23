@@ -9,8 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 @Entity
 public class Product {
 
@@ -30,10 +28,12 @@ public class Product {
 	@Column(nullable = false)
 	private Double unitPrice;
 	
-	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "gondola_id", nullable = false)
 	private Gondola gondola;
+	
+	public Product() {
+	}
 
 	public Long getId() {
 		return id;

@@ -42,11 +42,6 @@ public class ProductService {
 	public List<Product> getByName(String name) {
 		return productRepository.findByNameContaining(name);
 	}
-	
-	// Method to find by product's code.
-	public List<Product> findByCode(String code) {
-		return productRepository.findByCode(code);
-	}
 
 	// MISSING UPDATE: LIST OF GONDOLAS
 	public Product update(long id, Product product) {
