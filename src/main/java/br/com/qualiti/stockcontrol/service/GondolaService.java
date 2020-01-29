@@ -19,25 +19,25 @@ public class GondolaService {
 		this.gondolaRepository = gondolaRepository;
 	}
 	
-	public Gondola create(Gondola gondola) {
-		Gondola currentGondola = gondolaRepository.findByStreetAndSectionAndShelf(gondola.getStreet(), gondola.getSection(), gondola.getShelf());
-		if(currentGondola == null) {
-			return gondolaRepository.save(gondola);
-		} else {
-			throw new ResourceAlreadyExistsException("Gondola");
-		}
-	}
-	
 	public List<Gondola> getAll() {
 		return gondolaRepository.findAll();
 	}
-
+	
 	public Gondola getById(Long id) {
 		Optional<Gondola> gondola = gondolaRepository.findById(id);
 		if(gondola.isPresent()) {
 			return gondola.get();
 		} else {
 			throw new ResourceNotFoundException("Gondola", "Gondola", "Gondola with id: " + id + " not found");
+		}
+	}
+	
+	public Gondola create(Gondola gondola) {
+		Gondola currentGondola = gondolaRepository.findByStreetAndSectionAndShelf(gondola.getStreet(), gondola.getSection(), gondola.getShelf());
+		if(currentGondola == null) {
+			return gondolaRepository.save(gondola);
+		} else {
+			throw new ResourceAlreadyExistsException("Gondola");
 		}
 	}
 	

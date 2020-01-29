@@ -5,7 +5,9 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import br.com.qualiti.stockcontrol.exception.ResourceAlreadyExistsException;
 import br.com.qualiti.stockcontrol.exception.ResourceNotFoundException;
+import br.com.qualiti.stockcontrol.model.Gondola;
 import br.com.qualiti.stockcontrol.model.Product;
 import br.com.qualiti.stockcontrol.repository.ProductRepository;
 
@@ -18,32 +20,27 @@ public class ProductService {
 		this.productRepository = productRepository; 
 	}
 	
-	// Method to create and save a product on repository, requires product body.
-	public Product create(Product product) {
-		return productRepository.save(product);
-	}
-	
-	// Method to delete a product from repository, requires product id. SEARCH IF THIS METHOD THROWS AN EXCEPTION
-	public void delete(long id) {
-			productRepository.deleteById(id);
-	}
-	
-	// Method to find all the products on repository, returns a list of them.
 	public List<Product> getAll() {
 		return productRepository.findAll();
 	}
 	
-	// Method to find a product by the id.
 	public Product getById(long id) {
 		return productRepository.findById(id).get();
 	}
 	
-	// Method to find by product's name.
 	public List<Product> getByName(String name) {
 		return productRepository.findByNameContaining(name);
 	}
-
-	// MISSING UPDATE: LIST OF GONDOLAS
+	
+	public Product create(Product product) {
+		Product currentProduct = productRepository.findByCode(product.getCode());
+		if(currentProduct == null) {
+			return productRepository.save(product);
+		} else {
+			throw new ResourceAlreadyExistsException("Product");
+		}	
+	}
+	
 	public Product update(long id, Product product) {
 		Optional<Product> currentProduct = productRepository.findById(id);
 		if(currentProduct.isPresent()) {
@@ -56,4 +53,9 @@ public class ProductService {
 			throw new ResourceNotFoundException("Product", "Client", "with id: " + id + " not found");
 		}
 	}
+	
+	public void delete(long id) {
+		productRepository.deleteById(id);
+	}	
+
 }
