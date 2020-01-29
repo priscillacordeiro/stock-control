@@ -53,7 +53,7 @@ public class ProductService {
 			currentProduct.get().setUnitPrice(product.getUnitPrice());
 			return productRepository.save(currentProduct.get());
 		} else {
-			throw new ResourceNotFoundException("Product", "Client", "O id: " + id + "não foi encontrado.");
+			throw new ResourceNotFoundException("Product", "Client", "with id: " + id + " not found");
 		}
 	}
 }
