@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import br.com.qualiti.stockcontrol.exception.ResourceAlreadyExistsException;
 import br.com.qualiti.stockcontrol.exception.ResourceNotFoundException;
-import br.com.qualiti.stockcontrol.model.Gondola;
 import br.com.qualiti.stockcontrol.model.Product;
 import br.com.qualiti.stockcontrol.repository.ProductRepository;
 
@@ -35,6 +34,10 @@ public class ProductService {
 	
 	public List<Product> getByName(String name) {
 		return productRepository.findByNameContaining(name);
+	}
+	
+	public List<Product> getUnavailableProducts() {
+		return productRepository.findByQuantityEquals(0);
 	}
 	
 	public Product getByCode(Long code) {

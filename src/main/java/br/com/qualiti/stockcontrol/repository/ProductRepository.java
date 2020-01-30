@@ -13,5 +13,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	List<Product> findByNameContaining(String name);
 
 	Product findByCode(Long code);
+	
+	List<Product> findByQuantityEquals(long quantity);
 
 }

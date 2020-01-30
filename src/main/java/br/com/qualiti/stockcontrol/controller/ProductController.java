@@ -50,6 +50,11 @@ public class ProductController {
 		return productService.getByCode(code);
 	}
 	
+	@GetMapping("/unavailable")
+	public List<Product> getUnavailableProducts() {
+		return productService.getUnavailableProducts();
+	}
+	
 	@PutMapping("/{id}")
 	public Product update(@PathVariable Long id, Product product) {
 		return productService.update(id, product);
