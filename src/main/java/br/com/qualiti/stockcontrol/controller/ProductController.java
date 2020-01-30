@@ -16,7 +16,7 @@ import br.com.qualiti.stockcontrol.model.Product;
 import br.com.qualiti.stockcontrol.service.ProductService;
 
 @RestController
-@RequestMapping("/api/v1/products")
+@RequestMapping("/api/v1/product")
 public class ProductController {
 	
 	private ProductService productService;
@@ -43,6 +43,11 @@ public class ProductController {
 	@GetMapping("/name/{name}")
 	public List<Product> getByName(@PathVariable String name) {
 		return productService.getByName(name);
+	}
+	
+	@GetMapping("/code/{code}")
+	public Product getByCode(@PathVariable Long code) {
+		return productService.getByCode(code);
 	}
 	
 	@PutMapping("/{id}")
