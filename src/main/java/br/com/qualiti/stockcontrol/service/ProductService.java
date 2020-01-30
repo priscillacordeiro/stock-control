@@ -37,6 +37,15 @@ public class ProductService {
 		return productRepository.findByNameContaining(name);
 	}
 	
+	public Product getByCode(Long code) {
+		Product currentProduct = productRepository.findByCode(code);
+		if(currentProduct != null) {
+			return currentProduct;
+		} else {
+			throw new ResourceNotFoundException("Product", "code", code);
+		}	
+	}
+	
 	public Product create(Product product) {
 		Product currentProduct = productRepository.findByCode(product.getCode());
 		if(currentProduct == null) {
