@@ -25,7 +25,12 @@ public class ProductService {
 	}
 	
 	public Product getById(long id) {
-		return productRepository.findById(id).get();
+		Optional<Product> product = productRepository.findById(id);
+		if(product.isPresent()) {
+			return product.get();
+		} else {
+			throw new ResourceNotFoundException("Product", "id", id);
+		}
 	}
 	
 	public List<Product> getByName(String name) {
@@ -50,12 +55,17 @@ public class ProductService {
 			currentProduct.get().setUnitPrice(product.getUnitPrice());
 			return productRepository.save(currentProduct.get());
 		} else {
-			throw new ResourceNotFoundException("Product", "Client", "with id: " + id + " not found");
+			throw new ResourceNotFoundException("Product", "id", id);
 		}
 	}
 	
 	public void delete(long id) {
-		productRepository.deleteById(id);
+		Optional<Product> product = productRepository.findById(id);
+		if(product.isPresent()) {
+			productRepository.deleteById(id);
+		} else {
+			throw new ResourceNotFoundException("Product", "id", id);
+		}
 	}	
 
 }

@@ -28,7 +28,7 @@ public class GondolaService {
 		if(gondola.isPresent()) {
 			return gondola.get();
 		} else {
-			throw new ResourceNotFoundException("Gondola", "Gondola", "Gondola with id: " + id + " not found");
+			throw new ResourceNotFoundException("Gondola", "id", id);
 		}
 	}
 	
@@ -49,7 +49,7 @@ public class GondolaService {
 			currentGondola.get().setShelf(gondola.getShelf());
 			return gondolaRepository.save(currentGondola.get());
 		} else {
-			throw new ResourceNotFoundException("Gondola", "Gondola", "Gondola with id: " + id + " not found");
+			throw new ResourceNotFoundException("Gondola", "id", id);
 		}
 	}
 	
@@ -58,7 +58,7 @@ public class GondolaService {
 		if(gondola.isPresent()) {
 			gondolaRepository.deleteById(id);
 		} else {
-			throw new ResourceNotFoundException("Gondola", "Gondola", "Gondola with id: " + id + " not found");
+			throw new ResourceNotFoundException("Gondola", "id", id);
 		}
 	}
 	
